@@ -1,0 +1,6 @@
+.env
+__pycache__/
+*.pyc
+crypto_history.db
+.venv/
+venv/
