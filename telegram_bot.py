@@ -40,19 +40,23 @@ async def sol(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def report(update: Update, context: ContextTypes.DEFAULT_TYPE):
     coin = context.args[0].lower() if context.args else "solana"
-    await update.message.reply_text(f"🤖 Запускаю мультиагентов по {coin.upper()}...")
+    await update.message.reply_text(f"🤖 Запускаю мультиагентов по {coin.upper()}... ⏳ (может занять 30-60 сек)")
 
-    # crew.kickoff() is a blocking, synchronous call — run it off the event
-    # loop thread so the bot keeps responding to other updates meanwhile.
     from agents import create_crew
 
     crew = create_crew(coin)
     try:
         result = await asyncio.to_thread(crew.kickoff)
+        # Split long messages (Telegram limit is 4096 chars)
+        result_text = str(result)
+        if len(result_text) > 4000:
+            for i in range(0, len(result_text), 4000):
+                await update.message.reply_text(result_text[i:i+4000], parse_mode="Markdown")
+        else:
+            await update.message.reply_text(result_text, parse_mode="Markdown")
     except Exception as e:
-        await update.message.reply_text(f"⚠️ Ошибка анализа: {e}")
+        await update.message.reply_text(f"⚠️ Ошибка анализа: {str(e)[:200]}")
         return
-    await update.message.reply_text(str(result), parse_mode="Markdown")
 
 
 async def history(update: Update, context: ContextTypes.DEFAULT_TYPE):
