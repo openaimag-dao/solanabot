@@ -1,11 +1,11 @@
 import os
 
 from crewai import Agent, Task, Crew
-from langchain_openai import ChatOpenAI
+from langchain_anthropic import ChatAnthropic
 from dotenv import load_dotenv
 
 load_dotenv()
-llm = ChatOpenAI(model=os.getenv("LLM_MODEL", "gpt-4o-mini"), temperature=0.7)
+llm = ChatAnthropic(model=os.getenv("LLM_MODEL", "claude-opus-4-8"), temperature=0.7)
 
 data_agent = Agent(
     role="Data Analyst",

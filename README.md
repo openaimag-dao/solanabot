@@ -31,8 +31,8 @@ cp .env.example .env
 ```env
 TELEGRAM_TOKEN=токен_от_BotFather
 COINGECKO_API_KEY=
-OPENAI_API_KEY=sk-...
-LLM_MODEL=gpt-4o-mini
+ANTHROPIC_API_KEY=sk-ant-...
+LLM_MODEL=claude-opus-4-8
 ```
 
 Токен Telegram: напиши `@BotFather` → `/newbot`.
@@ -53,5 +53,5 @@ python main.py
 ## Примечания
 
 - `/report` вызывает `crew.kickoff()`, который делает несколько LLM-вызовов
-  подряд и требует `OPENAI_API_KEY`; ответ может занимать до минуты.
+  подряд и требует `ANTHROPIC_API_KEY`; ответ может занимать до минуты.
 - `crypto_history.db` создаётся автоматически при первом сохранении цены.
