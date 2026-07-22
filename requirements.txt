@@ -1,0 +1,9 @@
+crewai
+pycoingecko
+python-telegram-bot==20.7
+pandas
+python-dotenv
+langchain
+langchain-community
+langchain-openai
+chromadb
